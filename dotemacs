@@ -1,0 +1,16 @@
+(defvar emacs-root (cond
+		    ((eq system-type 'darwin) "~/")
+		    ((t) (message "Unknown system-type"))))
+		     
+(labels ((add-path (p)
+		   (add-to-list 'load-path (concat emacs-root p))))
+
+  (add-path "emacs/lisp")
+  (add-path "emacs/site-lisp")
+  (add-path "emacs/site-lisp/org-6.03/lisp")
+  (add-path "emacs/site-lisp/slime"))
+
+(load-library "efuncs")
+(load-library "config")
+(load-library "modes")
+(load-library "slime-config")
