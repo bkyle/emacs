@@ -1,6 +1,8 @@
-;; org-mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-
-;; js2-mode
-(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.blog$" . markdown-mode))
+;(add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.clj" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.scala" . scala-mode))
