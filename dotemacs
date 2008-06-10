@@ -1,7 +1,9 @@
 (defvar emacs-root (cond
 		    ((eq system-type 'darwin) "~/")
+		    ((eq system-type 'windows-nt) "~/")
 		    ((t) (message "Unknown system-type"))))
-		     
+(require 'cl)
+
 (labels ((add-path (p)
 		   (add-to-list 'load-path (concat emacs-root p))))
 
