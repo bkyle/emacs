@@ -39,3 +39,53 @@
     (end-of-line)
     (pop-tag)))
 
+;;
+;; Utils
+;;
+
+;; Returns the size of the buffer.
+(defun size-of-buffer ()
+  (interactive)
+  (let ((size (buffer-size))
+		  (size-in-kilobytes (/ (buffer-size) 1024))
+		  (size-in-megabytes (/ (buffer-size) (* 1024 1024))))
+	 (message (concat (int-to-string size) "b; " (int-to-string size-in-kilobytes) "kb; " (int-to-string size-in-megabytes) "mb"))))
+    
+
+;;
+;; Maven
+;;
+
+(defun maven-find-pom (path)
+  (let ((current-path path)
+        (files nil)
+        (found-p nil))
+    (catch 'done
+      (while (not found-p)
+        (setq files (directory-files current-path t)q)
+        (let ((has-parent-p nil))
+          (dolist (file files)
+            (if (eql ".." file)
+                (setq has-parent-p t))
+            (if (eql "pom.xml" file)
+                (progn
+                  (setq found-p t)
+                  (throw 'done t))))
+          (if found-p
+              (throw 'done t))
+          (if has-parent-p
+              (setq current-path (concat current-path "/.."))
+            (throw 'done t)))))
+      (if (not found-p)
+          (message "Couldn't find pom.xml")
+        found-p)))
+
+
+;(maven-find-pom "e:/src/WS/translator")
+
+
+
+            
+
+                  
+      
