@@ -3,9 +3,11 @@
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 
-(require 'highlight-current-line)
-(highlight-current-line-on t)
-(set-face-background 'highlight-current-line-face "light yellow")
+
+(unless (eq window-system nil)
+  (require 'highlight-current-line)
+  (highlight-current-line-on t)
+  (set-face-background 'highlight-current-line-face "light yellow"))
 
 ; Tabbing...
 (setq-default indent-tabs-mode nil)
