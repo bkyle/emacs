@@ -3,6 +3,9 @@
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 
+; Start the emacs server
+(server-start)
+
 (if window-system
   (progn
     (require 'highlight-current-line)
