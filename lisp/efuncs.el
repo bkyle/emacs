@@ -46,12 +46,29 @@
 
 ;; Returns the size of the buffer.
 (defun size-of-buffer ()
+  "Prints the size of the buffer in bytes, kb and mb to the message area."
   (interactive)
-  (let ((size (buffer-size))
-		  (size-in-kilobytes (/ (buffer-size) 1024))
-		  (size-in-megabytes (/ (buffer-size) (* 1024 1024))))
-	 (message (concat (int-to-string size) "b; " (int-to-string size-in-kilobytes) "kb; " (int-to-string size-in-megabytes) "mb"))))
-    
+  (message (humanize-byte-count (buffer-size))))
+
+(defun size-of-region (start end)
+  "Prints the size of the region in bytes, kb and mb to the message area."
+  (interactive "r")
+  (message (humanize-byte-count (- end start))))
+
+(defun size-of-line ()
+  "Prints the size of the line in bytes, kb and mb to the message area."
+  (interactive)
+  (save-excursion
+    (let (start end)
+      (beginning-of-line)
+      (setq start (point))
+      (end-of-line)
+      (setq end (point))
+      (message (humanize-byte-count (- end start))))))
+
+(defun humanize-byte-count (count)
+  "Formats the passed count as bytes, kb and mb"
+  (format "%db; %dkb; %dmb" count (/ count 1024) (/ count (* 1024 1024))))
 
 ;;
 ;; Maven
