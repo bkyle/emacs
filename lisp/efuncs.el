@@ -69,3 +69,46 @@
       (expand-file-name (concat (file-name-as-directory current-path) "pom.xml")))
      (t
       (message "Couldn't find pom.xml")))))
+
+
+;;
+;; HTML Stuff - Pretty much ripped from http://steve.yegge.googlepages.com/saving-time
+;;
+
+(defun html-syntax-highlight (start end)
+  (interactive "r")
+  (save-excursion
+    (let ((text (buffer-substring start end)))
+      (with-output-to-temp-buffer "*html-syntax*"
+        (set-buffer standard-output)
+        (insert "<pre>")
+        (save-excursion (insert text))
+        (save-excursion (html-escape-text))
+        (while (not (eobp))
+          (let ((next-change
+                 (or (next-single-property-change (point) 'face (current-buffer))
+                     (point-max))))
+            (html-add-font-tags (point) next-change)
+            (goto-char next-change)))
+        (insert "</pre>")))))
+
+(defun html-add-font-tags (start end)
+  (let (face color rgb name r g b)
+    (and
+     (setq face (get-text-property start 'face))
+     (or (if (listp face) (setq face (car face))) t)
+     (setq color (face-attribute face :foreground))
+     (setq rgb (assoc (downcase color) color-name-rgb-alist))
+     (destructuring-bind (name r g b) rgb
+       (let ((text (buffer-substring-no-properties start end)))
+         (delete-region start end)
+         (insert (format "<span style=\"color:#%.2x%.2x%.2x;\">" (/ r 256) (/ g 256) (/ b 256)))
+         (insert text)
+         (insert "</span>"))))))
+
+(defun html-escape-text ()
+  (dolist (escape 
+           '( ("&" . "&amp;")
+              ("<" . "&lt;")
+              (">" . "&gt;")))
+    (save-excursion (replace-string (car escape) (cdr escape)))))
