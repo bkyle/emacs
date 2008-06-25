@@ -40,6 +40,18 @@
     (end-of-line)
     (pop-tag)))
 
+;;
+;; Utils
+;;
+
+;; Returns the size of the buffer.
+(defun size-of-buffer ()
+  (interactive)
+  (let ((size (buffer-size))
+		  (size-in-kilobytes (/ (buffer-size) 1024))
+		  (size-in-megabytes (/ (buffer-size) (* 1024 1024))))
+	 (message (concat (int-to-string size) "b; " (int-to-string size-in-kilobytes) "kb; " (int-to-string size-in-megabytes) "mb"))))
+    
 
 ;;
 ;; Maven
