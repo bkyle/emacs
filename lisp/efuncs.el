@@ -141,3 +141,19 @@
               ("<" . "&lt;")
               (">" . "&gt;")))
     (save-excursion (replace-string (car escape) (cdr escape)))))
+
+
+;;
+;; Blog Stuff
+;;
+
+(defun blog-word-count()
+  (interactive)
+  (save-excursion
+    (beginning-of-buffer)
+    (let ((word-char-count 0))
+      (while (not (eobp))
+        (unless (looking-at "[ \t\r\n]")
+          (incf word-char-count))
+        (forward-char))
+      (message (format "%d characters, %d words" word-char-count (/ word-char-count 5))))))
