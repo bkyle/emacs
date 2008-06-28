@@ -1,5 +1,5 @@
 (setq make-backup-files nil)
-(tool-bar-mode nil)
+(tool-bar-mode -1)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 
