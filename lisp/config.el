@@ -2,6 +2,13 @@
 (tool-bar-mode nil)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
+(column-number-mode)
+
+(customize-set-variable 'fill-column 80)
+
+(put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 ; Start the emacs server
 (server-start)
