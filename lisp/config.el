@@ -7,7 +7,7 @@
 (customize-set-variable 'fill-column 80)
 
 ; Use cygwin for find on windows.
-(if (eq system-type 'nt)
+(if (eq system-type 'windows-nt)
     (customize-set-variable 'grep-find-command '("c:\\cygwin\\bin\\find . -type f -exec grep -nH -e  {} NUL \";\"" . 48)))
 
 (put 'narrow-to-region 'disabled nil)
