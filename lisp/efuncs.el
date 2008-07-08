@@ -157,3 +157,15 @@
           (incf word-char-count))
         (forward-char))
       (message (format "%d characters, %d words" word-char-count (/ word-char-count 5))))))
+
+
+
+;; XFDL Stuff
+
+(defun xfdl-decode-buffer ()
+  (interactive)
+  (save-excursion
+    (beginning-of-buffer)
+    (kill-line)
+    (base64-decode-region (point-min) (point-max))
+    (shell-command-on-region (point-min) (point-max) "gzip -d" "*temp*" t)))
