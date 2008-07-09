@@ -157,3 +157,39 @@
           (incf word-char-count))
         (forward-char))
       (message (format "%d characters, %d words" word-char-count (/ word-char-count 5))))))
+
+
+
+;; XFDL Stuff
+
+(defun xfdl-decode-buffer ()
+  (interactive)
+  (save-excursion
+    (beginning-of-buffer)
+    (kill-line)
+    (base64-decode-region (point-min) (point-max))
+    (shell-command-on-region (point-min) (point-max) "gzip -d" "*temp*" t)))
+
+;; Utilities
+
+(defun revert-all-buffers ()
+  (interactive)
+  (let (revert-buffers-p)
+    (setq revert-buffers-p
+          (catch 'done-input
+            (let (revert-buffers-string)
+              (while t
+                (setq revert-buffers-string (read-from-minibuffer "Are you sure that you want to revert *all* buffers? (yes or no) "))
+                (cond ((equal "yes" revert-buffers-string)
+                       (throw 'done-input t))
+                      ((equal "no" revert-buffers-string)
+                       (throw 'done-input nil)))))))
+    (if revert-buffers-p
+        (save-excursion
+          (dolist (buffer (buffer-list))
+            (if (buffer-file-name buffer)
+                (progn
+                  (message (concat "reverting " (buffer-file-name buffer)))
+                  (set-buffer buffer)
+
+                  (revert-buffer nil t))))))))
