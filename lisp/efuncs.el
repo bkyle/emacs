@@ -158,9 +158,18 @@
         (forward-char))
       (message (format "%d characters, %d words" word-char-count (/ word-char-count 5))))))
 
+(defun blog-make-link (start end url)
+  (interactive "r\nsURL:")
+  (save-excursion
+    (let (f(text (buffer-substring start end)))
+      (delete-region start end)
+      (insert (format "<a href=\"%s\">" url))
+      (insert text)
+      (insert "</a>"))))
 
-
+;;
 ;; XFDL Stuff
+;;
 
 (defun xfdl-decode-buffer ()
   (interactive)
@@ -191,5 +200,4 @@
                 (progn
                   (message (concat "reverting " (buffer-file-name buffer)))
                   (set-buffer buffer)
-
                   (revert-buffer nil t))))))))
