@@ -157,3 +157,12 @@
           (incf word-char-count))
         (forward-char))
       (message (format "%d characters, %d words" word-char-count (/ word-char-count 5))))))
+
+(defun blog-make-link (start end url)
+  (interactive "r\nsURL:")
+  (save-excursion
+    (let (f(text (buffer-substring start end)))
+      (delete-region start end)
+      (insert (format "<a href=\"%s\">" url))
+      (insert text)
+      (insert "</a>"))))
