@@ -10,6 +10,18 @@
 (setq js2-mode-squeeze-spaces nil)
 (setq js2-cleanup-whitespace nil)
 
+;; ruby-mode
+(autoload 'ruby-mode "ruby-mode")
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+
+; inferior mode for ruby
+(autoload 'run-ruby "inf-ruby")
+(autoload 'inf-ruby-keys "inf-ruby")
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (inf-ruby-keys)))
+
 
 ;; C-Mode
 (setq c-basic-offset 4)
