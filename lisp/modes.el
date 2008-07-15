@@ -11,7 +11,7 @@
 (setq js2-cleanup-whitespace nil)
 
 ;; ruby-mode
-(autoload 'ruby-mode "ruby-mode")
+(autoload 'ruby-mode "ruby-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 
