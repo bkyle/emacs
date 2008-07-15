@@ -2,7 +2,7 @@
 (tool-bar-mode -1)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
-(column-number-mode)
+(column-number-mode t)
 
 (customize-set-variable 'fill-column 80)
 
