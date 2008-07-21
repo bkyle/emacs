@@ -10,6 +10,13 @@
 (setq js2-mode-squeeze-spaces nil)
 (setq js2-cleanup-whitespace nil)
 
+;; inf-js
+(autoload 'run-js "inf-js" nil t)
+(autoload 'inf-js-keys "inf-js" nil)
+(add-hook 'js2-mode-hook
+          '(lambda ()
+             (inf-js-keys)))
+
 ;; ruby-mode
 (autoload 'ruby-mode "ruby-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
