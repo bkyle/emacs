@@ -23,7 +23,7 @@
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 
 ; inferior mode for ruby
-(autoload 'run-ruby "inf-ruby")
+(autoload 'run-ruby "inf-ruby" t)
 (autoload 'inf-ruby-keys "inf-ruby")
 (add-hook 'ruby-mode-hook
           '(lambda ()
