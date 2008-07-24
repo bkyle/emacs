@@ -70,6 +70,17 @@
   "Formats the passed count as bytes, kb and mb"
   (format "%db; %dkb; %dmb" count (/ count 1024) (/ count (* 1024 1024))))
 
+(defun build-tab-stop-list (width columns)
+  "Builds a list of tab stops given the width of the tabs and the maximum column to
+specify tabbing to."
+  (let ((num-tab-stops (/ columns width))
+		(tab-stops nil)
+		(counter 1))
+	(while (<= counter num-tab-stops)
+	  (setq tab-stops (cons (* counter width) tab-stops))
+	  (setq counter (+ 1 counter)))
+	(nreverse tab-stops)))
+
 ;;
 ;; Maven
 ;;

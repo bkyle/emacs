@@ -28,15 +28,4 @@
 ; Tabbing...
 (setq-default default-tab-width 4)
 
-;; The following is only needed (I think) if indent-tabs-mode is set to nil
-;; (setq-default tab-stop-list 
-;; 			  (funcall (lambda (tab-stop max-stop)
-;; 						 (let ((tab-stops '(0)))
-;; 						   (while (< (car tab-stops) max-stop)
-;; 							 (setq tab-stops (cons (+ tab-stop (car tab-stops)) tab-stops)))
-;; 						   (reverse tab-stops))) 
-;; 					   (default-value 'default-tab-width)
-;; 					   120))
-
 (add-to-list 'vc-handled-backends 'Git)
-(autoload 'git-status "git" nil t)

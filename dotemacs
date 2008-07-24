@@ -15,4 +15,6 @@
 (load-library "efuncs")
 (load-library "config")
 (load-library "modes")
+(load-library "autoloads")
+(load-library "hooks")
 (load-library "slime-config")
