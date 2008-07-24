@@ -1,4 +1,5 @@
 (setq make-backup-files nil)
+(setq vc-make-backup-files nil)
 (tool-bar-mode -1)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
@@ -25,9 +26,17 @@
     (set-face-background 'highlight-current-line-face "light yellow")))
 
 ; Tabbing...
-(setq-default indent-tabs-mode nil)
 (setq-default default-tab-width 4)
-(setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))
+
+;; The following is only needed (I think) if indent-tabs-mode is set to nil
+;; (setq-default tab-stop-list 
+;; 			  (funcall (lambda (tab-stop max-stop)
+;; 						 (let ((tab-stops '(0)))
+;; 						   (while (< (car tab-stops) max-stop)
+;; 							 (setq tab-stops (cons (+ tab-stop (car tab-stops)) tab-stops)))
+;; 						   (reverse tab-stops))) 
+;; 					   (default-value 'default-tab-width)
+;; 					   120))
 
 (add-to-list 'vc-handled-backends 'Git)
 (autoload 'git-status "git" nil t)
