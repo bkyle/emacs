@@ -9,7 +9,7 @@
 
 ; Use cygwin for find on windows.
 (if (eq system-type 'windows-nt)
-    (customize-set-variable 'grep-find-command '("c:\\cygwin\\bin\\find . -type f -exec grep -nH -e  {} NUL \";\"" . 48)))
+	  (customize-set-variable 'grep-find-template '"c:\\cygwin\\bin\\find . <X> -type f <F> -exec grep <C> -nH -e <R> {} NUL \";\""))
 
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
