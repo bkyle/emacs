@@ -251,6 +251,15 @@
   :group 'markdown
   :type 'boolean)
 
+(defcustom markdown-indent-function 'markdown-indent-line
+  "Function to use to indent"
+  :group 'markdown
+  :type 'function)
+
+(defcustom markdown-indent-on-enter t
+  "Automatically indent new lines when enter key is pressed"
+  :group 'markdown
+  :type 'boolean)
 
 ;;; Font lock =================================================================
 
@@ -636,6 +645,93 @@ as preformatted text."
   (if mark-active
       (perform-replace "^" "    " nil 1 nil nil nil beg end)))
 
+(defun markdown-indent-find-next-position (cur-pos positions)
+  "Returns the position after the index of cur-pos in positions"
+  (while (and positions 
+			  (not (equal cur-pos (car positions))))
+    (setq positions (cdr positions)))
+  (or (cadr positions) 0))
+
+
+(defun markdown-indent-line ()
+  "Indents the current line using some heuristics"
+  (interactive)
+  (let (cur-pos 
+		prev-line-pos
+		positions
+		computed-pos)
+    (setq cur-pos (current-column))
+
+    ;; Indentation of previous line
+    (setq pos
+          (save-excursion
+            (forward-line -1)
+            (goto-char (point-at-bol))
+            (when (re-search-forward "\s+" (point-at-eol) t)
+              (current-column))))
+    (if pos
+		(progn
+		  (setq prev-line-pos pos)
+		  (setq positions (cons pos positions))))
+
+    ;; Position of the first non-list marker on the previous line
+    (setq pos
+          (save-excursion
+            (forward-line -1)
+            (goto-char (point-at-bol))
+            (when (re-search-forward "\s*\\([0-9]\\.\\|[-\\*\\+]\\)\s*" (point-at-eol) t)
+              (current-column))))
+    (if pos
+        (setq positions (cons pos positions)))
+            
+
+    ;; Indentation of the previous line + tab-width
+    (cond
+	 (prev-line-pos
+	  (setq positions (cons (+ (car positions) tab-width) positions)))
+
+	 (t
+	  (setq positions (cons tab-width positions))))
+
+ 	;; Indentation of the previous line - tab-width
+	(if (and prev-line-pos
+			 (> prev-line-pos tab-width))
+		(setq positions (cons (- prev-line-pos tab-width) positions)))
+
+	;; Indentation of the bullet of any preceeding line
+	(setq pos
+		  (save-excursion
+			(catch 'break
+			  (while (not (equal (point) 0))
+				(forward-line -1)
+				(goto-char (point-at-bol))
+				(when (re-search-forward "\s*\\([0-9]\\.\\|[-\\*\\+]\\)" (point-at-eol) t)
+				  (throw 'break (- (current-column) (length (match-string 1))))))
+			  nil)))
+	(if pos
+		(setq positions (cons pos positions)))
+	
+
+    (setq positions (cons 0 (reverse positions)))
+
+    ;; If the current column is any of the positions, remove all of the positions up-to
+    ;; and including the current column
+
+	(setq computed-pos (markdown-indent-find-next-position cur-pos positions))
+    (indent-line-to computed-pos)))
+
+
+(defun markdown-enter-key ()
+  (interactive)
+  (let (indent)
+	(if markdown-indent-on-enter
+		(setq indent
+			  (save-excursion
+				(goto-char (point-at-bol))
+				(if (re-search-forward "^\s" (point-at-eol) t) t))))
+	(insert "\n")
+	(if indent (funcall indent-line-function))))
+				
 
 
 
@@ -665,6 +761,8 @@ as preformatted text."
     (define-key markdown-mode-map "\C-c-" 'markdown-insert-hr)
     (define-key markdown-mode-map "\C-c\C-tt" 'markdown-insert-title)
     (define-key markdown-mode-map "\C-c\C-ts" 'markdown-insert-section)
+	;; Indentation
+	(define-key markdown-mode-map "\C-m" 'markdown-enter-key)
     ;; Visibility cycling
     (define-key markdown-mode-map (kbd "<tab>") 'markdown-cycle)
     (define-key markdown-mode-map (kbd "<S-iso-lefttab>") 'markdown-shifttab)
@@ -957,7 +1055,7 @@ defined."
 
      (t
       (message "TAB")
-      (indent-relative))))
+      (funcall indent-line-function))))
 
 ;; Based on org-shifttab from org.el.
 (defun markdown-shifttab (&optional arg)
@@ -1019,7 +1117,9 @@ This is an exact copy of line-number-at-pos for use in emacs21."
   (make-local-variable 'outline-regexp)
   (setq outline-regexp "#+")
   ;; Cause use of ellipses for invisible text.
-  (add-to-invisibility-spec '(outline . t)))
+  (add-to-invisibility-spec '(outline . t))
+  ;; Indentation
+  (setq indent-line-function markdown-indent-function))
 
 ;(add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
 
