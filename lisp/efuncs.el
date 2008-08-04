@@ -70,10 +70,15 @@
   "Formats the passed count as bytes, kb and mb"
   (format "%db; %dkb; %dmb" count (/ count 1024) (/ count (* 1024 1024))))
 
-(defun build-tab-stop-list (width columns)
+(defun* configure-tabbing (&key (width 4) (use-tabs t))
+  (setq indent-tabs-mode use-tabs)
+  (setq tab-width width)
+  (setq tab-stop-list (build-tab-stop-list width)))
+
+(defun build-tab-stop-list (width)
   "Builds a list of tab stops given the width of the tabs and the maximum column to
 specify tabbing to."
-  (let ((num-tab-stops (/ columns width))
+  (let ((num-tab-stops (/ 120 width))
 		(tab-stops nil)
 		(counter 1))
 	(while (<= counter num-tab-stops)
@@ -212,3 +217,18 @@ specify tabbing to."
                   (message (concat "reverting " (buffer-file-name buffer)))
                   (set-buffer buffer)
                   (revert-buffer nil t))))))))
+
+
+;; Carbon Emacs Stuff
+(defvar frame-fullscreen-mode nil)
+
+(defun frame-fullscreen-mode ()
+  "Makes the frame fullscreen"
+  (interactive)
+  (cond
+   ((not frame-fullscreen-mode)
+    (setq frame-fullscreen-mode t)
+    (set-frame-parameter nil 'fullscreen 'fullboth))
+   (t
+    (setq frame-fullscreen-mode nil)
+    (set-frame-parameter nil 'fullscreen nil))))

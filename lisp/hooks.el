@@ -34,3 +34,8 @@
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 
+
+(defun my-markdown-mode-hook ()
+  (configure-tabbing :width 4 :use-tabs nil))
+
+(add-hook 'markdown-mode-hook 'my-markdown-mode-hook)
