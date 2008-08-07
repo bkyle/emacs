@@ -28,11 +28,17 @@
 (defun my-c-mode-common-hook ()
   "My c-mode-common-hook"
   (setq tab-width 4)
-  (setq c-basic-offset tab-width)
-  (setq c-style '((java-mode . "bsd"))))
+  (setq c-basic-offset tab-width))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
+(defun my-java-mode-hook ()
+  "My java-mode-hook"
+  (setq tab-width 4)
+  (c-set-style "bsd")
+  (setq c-basic-offset tab-width))
+
+(add-hook 'java-mode-hook 'my-java-mode-hook)
 
 
 (defun my-markdown-mode-hook ()
