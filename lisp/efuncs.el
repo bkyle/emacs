@@ -179,10 +179,45 @@ specify tabbing to."
   (save-excursion
     (let (f(text (buffer-substring start end)))
       (delete-region start end)
-      (insert (format "<a href=\"%s\">" url))
-      (insert text)
-      (insert "</a>"))))
+      (insert (format "[%s](%s)" text url)))))
 
+(defun blog-preview (&optional link-p)
+  "Previews the blog post in the curr
+optional parameter link-p is given a non-nil value the stylesheet will be linked to
+the document instead of being included inline."
+  (interactive "P")
+  (catch 'done
+	(let (path stylesheet text)
+	  (setq path (file-name-directory (buffer-file-name)))
+	  (if (not path)
+		  (progn
+			(message "Buffer must be saved before previewing")
+			(throw 'done nil)))
+	  (setq stylesheet (concat path "blog.css"))
+	  (if (not (file-exists-p path))
+		  (progn
+			(message (format "stylesheet does not exist in the directory of the current buffer (%s)" path))
+			(throw 'done nil)))
+	  (setq text (buffer-substring (point-min) (point-max)))
+	  (with-output-to-temp-buffer "*blog-preview*"
+		(set-buffer standard-output)
+		;; Must wrap <style> in <div> since markdown will only leave inline html block elements alone.
+		(insert "<div>")
+		(cond
+		 (link-p
+		  (insert (format "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"%s\">\n\n"
+						  stylesheet)))
+		 (t
+		  ;; Must advance the point the number of characters in the stylesheet since 
+		  ;; insert-file-contents won't do this for you.
+		  (insert "<style>")
+		  (goto-char (+ (point) (second (insert-file-contents stylesheet))))
+		  (insert "</style>")))
+		(insert "</div>\n\n")
+		(insert text)
+		(markdown-preview))
+	  (kill-buffer "*blog-preview*"))))
+	 
 ;;
 ;; XFDL Stuff
 ;;
