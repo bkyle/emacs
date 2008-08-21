@@ -18,12 +18,19 @@
 ; Start the emacs server
 (server-start)
 
-; Highlight the current line if running in a windowing system.
-(if window-system
-  (progn
-    (require 'highlight-current-line)
-    (highlight-current-line-on t)
-    (set-face-background 'highlight-current-line-face "light yellow")))
+(cond
+
+ (window-system
+
+  ;; Highlight the current line only when in a windowing system
+  (require 'highlight-current-line)
+  (highlight-current-line-on t)
+  (set-face-background 'highlight-current-line-face "light yellow"))
+
+ (t
+
+  ;; Disable the menubar when not in a windowing system
+  (menu-bar-mode -1)))
 
 ; Tabbing...
 (setq-default default-tab-width 4)
