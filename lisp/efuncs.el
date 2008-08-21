@@ -253,6 +253,36 @@ the document instead of being included inline."
                   (set-buffer buffer)
                   (revert-buffer nil t))))))))
 
+(defun swap-windows ()
+  "Swaps the buffers in the current windows."
+  (interactive)
+  (catch 'done
+	(let (windows window-a window-b buffer-a buffer-b)
+	  (setq windows (window-list))
+
+	  (unless (eql 2 (length windows))
+		(message "Can only swap 2 windows.")
+		(throw 'done t))
+
+	  (setq window-a (car windows))
+	  (setq window-b (cadr windows))
+
+	  (setq buffer-a (window-buffer window-a))
+	  (setq buffer-b (window-buffer window-b))
+
+	  (set-window-buffer window-a buffer-b)
+	  (set-window-buffer window-b buffer-a))))
+
+(defun word-count ()
+  (interactive)
+  (save-excursion
+	(let ((count 0))
+	  (beginning-of-buffer)
+	  (while (not (eobp))
+		(forward-word 1)
+		(setq count (+ count 1)))
+	  (message (format "%d words" count)))))
+
 
 ;; Carbon Emacs Stuff
 (defvar frame-fullscreen-mode nil)
