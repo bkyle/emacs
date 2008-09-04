@@ -1,6 +1,7 @@
 (setq make-backup-files nil)
 (setq vc-make-backup-files nil)
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 (column-number-mode t)
@@ -18,19 +19,12 @@
 ; Start the emacs server
 (server-start)
 
-(cond
 
- (window-system
-
-  ;; Highlight the current line only when in a windowing system
+; Only enable the current line highlighting when there is a windowing system.
+(when window-system
   (require 'highlight-current-line)
   (highlight-current-line-on t)
   (set-face-background 'highlight-current-line-face "light yellow"))
-
- (t
-
-  ;; Disable the menubar when not in a windowing system
-  (menu-bar-mode -1)))
 
 ; Tabbing...
 (setq-default default-tab-width 4)
