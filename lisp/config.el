@@ -31,6 +31,5 @@
 
 (add-to-list 'vc-handled-backends 'Git)
 
-
 ; Key mapping
 (define-key global-map (kbd "C-x C-/") 'comment-region)
