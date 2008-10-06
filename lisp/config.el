@@ -30,3 +30,6 @@
 (setq-default default-tab-width 4)
 
 (add-to-list 'vc-handled-backends 'Git)
+
+
+(global-set-key (kbd "C-x /") 'comment-region)
