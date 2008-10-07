@@ -5,6 +5,8 @@
 (autoload 'run-ruby "inf-ruby" t)
 (autoload 'inf-ruby-keys "inf-ruby")
 (autoload 'git-status "git" nil t)
+(autoload 'clojure-mode "clojure-mode" nil t)
+(autoload 'run-clojure "clojure-mode" nil t)
 
 (autoload 'markdown-mode "markdown-mode" nil t)
 (autoload 'markdown "markdown-mode" nil t)
