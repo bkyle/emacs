@@ -45,3 +45,14 @@
   (configure-tabbing :width 4 :use-tabs nil))
 
 (add-hook 'markdown-mode-hook 'my-markdown-mode-hook)
+
+
+(defun my-dired-load-hook ()
+  (load "dired-x"))
+
+(add-hook 'dired-load-hook 'my-dired-load-hook)
+
+(defun my-dired-mode-hook ()
+  )
+
+(add-hook 'dired-mode-hook 'my-dired-mode-hook)
