@@ -232,26 +232,39 @@ the document instead of being included inline."
 
 ;; Utilities
 
+(defun char-codes-to-string (mark point)
+  "Converts a list of character codes separated by word separators into a string and displays them in a
+temporary buffer.  This code only works with single-byte characters."
+
+  (interactive "r")
+  (save-excursion
+	(let ((data (buffer-substring mark point)))
+	  (with-output-to-temp-buffer "*string*"
+		(set-buffer standard-output)
+		(insert data)
+		(beginning-of-buffer)
+		(while (not (eobp))
+		  (let (char-code)
+			(push-mark)
+			(forward-word)
+			(setq char-code (buffer-substring (mark) (point)))
+			(delete-region (mark) (min
+								   (+ (point) 1)
+								   (point-max)))
+			(pop-mark)
+			(insert (char-to-string (string-to-int char-code)))))))))
+
 (defun revert-all-buffers ()
   (interactive)
-  (let (revert-buffers-p)
-    (setq revert-buffers-p
-          (catch 'done-input
-            (let (revert-buffers-string)
-              (while t
-                (setq revert-buffers-string (read-from-minibuffer "Are you sure that you want to revert *all* buffers? (yes or no) "))
-                (cond ((equal "yes" revert-buffers-string)
-                       (throw 'done-input t))
-                      ((equal "no" revert-buffers-string)
-                       (throw 'done-input nil)))))))
-    (if revert-buffers-p
-        (save-excursion
-          (dolist (buffer (buffer-list))
-            (if (buffer-file-name buffer)
-                (progn
-                  (message (concat "reverting " (buffer-file-name buffer)))
-                  (set-buffer buffer)
-                  (revert-buffer nil t))))))))
+  (if (yes-or-no-p "Are you sure that you want to revert *all* buffers? ")
+	  (save-excursion
+		(dolist (buffer (buffer-list))
+		  (if (buffer-file-name buffer)
+			  (progn
+				(message (format "Reverting %s" (buffer-file-name buffer)))
+				(set-buffer buffer)
+				(revert-buffer nil t))))))
+  (message "Done."))
 
 (defun swap-windows ()
   "Swaps the buffers in the current windows."

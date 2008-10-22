@@ -33,3 +33,9 @@
 
 ; Key mapping
 (define-key global-map (kbd "C-x C-/") 'comment-region)
+(define-key global-map (kbd "<f5>") 'rgrep)
+(define-key global-map (kbd "C-x C-b") 'buffer-menu)
+
+
+; Dired-X
+(setq dired-omit-files "^#\\|\\.$\\|\\.svn")
