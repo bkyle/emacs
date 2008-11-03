@@ -11,3 +11,6 @@
 (autoload 'markdown-mode "markdown-mode" nil t)
 (autoload 'markdown "markdown-mode" nil t)
 (autoload 'markdown-preview "markdown-mode" nil t)
+
+(require 'semantic-load)
+(require 'ecb-autoloads)

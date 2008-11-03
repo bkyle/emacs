@@ -11,7 +11,11 @@
   (add-path "emacs/lisp")
   (add-path "emacs/site-lisp")
   (add-path "emacs/site-lisp/org-6.03/lisp")
-  (add-path "emacs/site-lisp/slime"))
+  (add-path "emacs/site-lisp/slime")
+  (add-path "emacs/site-lisp/eieio-0.17")
+  (add-path "emacs/site-lisp/speedbar-0.14beta4")
+  (add-path "emacs/site-lisp/semantic-1.4.4")
+  (add-path "emacs/site-lisp/ecb-2.32"))
 
 (load-library "efuncs")
 (load-library "config")
