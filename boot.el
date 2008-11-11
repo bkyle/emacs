@@ -1,0 +1,21 @@
+(require 'cl)
+
+(labels ((add-path (p)
+		   (add-to-list 'load-path (concat emacs-root p))))
+
+  (add-path "lisp")
+  (add-path "site-lisp")
+  (add-path "site-lisp/org-6.03/lisp")
+  (add-path "site-lisp/slime")
+  (add-path "site-lisp/eieio-0.17")
+  (add-path "site-lisp/speedbar-0.14beta4")
+  (add-path "site-lisp/semantic-1.4.4")
+  (add-path "site-lisp/ecb-2.32")
+  (add-path "site-lisp/color-theme-6.6.0"))
+
+(load-library "autoloads")
+(load-library "efuncs")
+(load-library "config")
+(load-library "modes")
+(load-library "hooks")
+(load-library "slime-config")
