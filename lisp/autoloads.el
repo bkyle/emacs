@@ -12,5 +12,15 @@
 (autoload 'markdown "markdown-mode" nil t)
 (autoload 'markdown-preview "markdown-mode" nil t)
 
+(require 'color-theme-autoloads)
+
+(defun color-theme-twilight ()
+  (color-theme-initialize)
+  (color-theme-twilight))
+
+(defun color-theme-standard ()
+  (color-theme-initialize)
+  (color-theme-standard))
+
 (require 'semantic-load)
 (require 'ecb-autoloads)

@@ -24,7 +24,8 @@
 (when window-system
   (require 'highlight-current-line)
   (highlight-current-line-on t)
-  (set-face-background 'highlight-current-line-face "light yellow"))
+  ;(set-face-background 'highlight-current-line-face "light yellow")
+  (color-theme-standard))
 
 ; Tabbing...
 (setq-default default-tab-width 4)
