@@ -23,7 +23,7 @@
   (interactive)
   (color-theme-install
    '(color-theme-twilight
-     ((background-color . "black")
+     ((background-color . "#131313")
       (background-mode . dark)
       (border-color . "black")
       (cursor-color . "#A7A7A7")
@@ -51,6 +51,9 @@
      (font-lock-type-face ((t (:foreground "#9B703F"))))
      (font-lock-variable-name-face ((t (:foreground "#7587A6"))))
      (font-lock-warning-face ((t (:bold t :foreground "Pink"))))
+
+	 (fringe ((t (:background "#131313"))))
+
      (gui-element ((t (:background "#D4D0C8" :foreground "black"))))
      (region ((t (:background "#27292A"))))
      (mode-line ((t (:background "grey75" :foreground "black"))))
