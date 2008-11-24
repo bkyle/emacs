@@ -15,10 +15,12 @@
 (require 'color-theme-autoloads)
 
 (defun color-theme-twilight ()
+  (interactive)
   (color-theme-initialize)
   (color-theme-twilight))
 
 (defun color-theme-standard ()
+  (interactive)
   (color-theme-initialize)
   (color-theme-standard))
 

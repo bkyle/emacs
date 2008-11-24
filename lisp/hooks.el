@@ -56,3 +56,22 @@
   )
 
 (add-hook 'dired-mode-hook 'my-dired-mode-hook)
+
+(defun my-sgml-mode-hook ()
+  (define-key sgml-mode-map "/" (lambda ()
+								  (interactive)
+								  (or
+								   (let (point)
+									 (save-excursion
+									   (backward-char)
+									   (when (looking-at "<")
+										 (delete-char 1)
+										 (sgml-close-tag)
+										 (setq point (point))))
+									 (when point
+									   (goto-char point)
+									   t))
+								   (insert "/")))))								  
+
+
+(add-hook 'sgml-mode-hook 'my-sgml-mode-hook)
