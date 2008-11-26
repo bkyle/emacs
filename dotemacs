@@ -1,7 +1,8 @@
 (defvar emacs-root (cond
-		    ((eq system-type 'darwin) "~/emacs/")
-		    ((eq system-type 'windows-nt) "~/emacs/")
-		    ((eq system-type 'cygwin) "~/emacs/")
+		    ((or (eq system-type 'darwin)
+			 (eq system-type 'windows-nt)
+			 (eq system-type 'cygwin)
+			 (eq system-type 'gnu/linux))"~/emacs/")
 		    (t (message "Unknown system-type"))))
 
 (load (concat emacs-root "boot.el"))
