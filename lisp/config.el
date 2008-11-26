@@ -5,6 +5,10 @@
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 (column-number-mode t)
+(setq show-paren-match 1)
+(setq default-abbrev-mode t)
+(setq abbrev-file-name (concat emacs-root "abbrevs.def"))
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (customize-set-variable 'fill-column 80)
 

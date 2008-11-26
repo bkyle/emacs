@@ -21,20 +21,33 @@
 (defun color-theme-twilight ()
   "Color theme by Marcus Crafter, based off the TextMate Twilight theme, created 2008-04-18"
   (interactive)
+
+;;   (background :background "#131313")
+;;   (current-line :background "#222222")
+;;   (comment :foreground "#5e5960" :italic)
+;;   (constant :foreground "#cf694b")
+;;   (entity :foreground "#9a703f")
+;;   (keyword :foreground "#cda869")
+;;   (storage :foreground "#f9ed97")
+;;   (string :foreground "#8e9c69")
+;;   (support :foreground "#9a859c")
+;;   (variable :foreground "#7587a5")
+		
+
   (color-theme-install
    '(color-theme-twilight
      ((background-color . "#131313")
       (background-mode . dark)
-      (border-color . "black")
+      (border-color . "#131313")
       (cursor-color . "#A7A7A7")
       (foreground-color . "#F8F8F8")
       (mouse-color . "sienna1"))
-     (default ((t (:background "black" :foreground "white"))))
+     (default ((t (:background "#131313" :foreground "white"))))
      (blue ((t (:foreground "blue"))))
      (bold ((t (:bold t))))
      (bold-italic ((t (:bold t))))
      (border-glyph ((t (nil))))
-     (buffers-tab ((t (:background "black" :foreground "white"))))
+     (buffers-tab ((t (:background "#131313" :foreground "white"))))
      (font-lock-builtin-face ((t (:foreground "white"))))
      (font-lock-comment-face ((t (:italic t :foreground "#5F5A60"))))
      (font-lock-constant-face ((t (:foreground "#CF6A4C"))))
@@ -52,15 +65,16 @@
      (font-lock-variable-name-face ((t (:foreground "#7587A6"))))
      (font-lock-warning-face ((t (:bold t :foreground "Pink"))))
 
-	 (fringe ((t (:background "#131313"))))
+     (fringe ((t (:background "#131313"))))
 
      (gui-element ((t (:background "#D4D0C8" :foreground "black"))))
      (region ((t (:background "#27292A"))))
      (mode-line ((t (:background "grey75" :foreground "black"))))
      (highlight ((t (:background "#222222"))))
      (highline-face ((t (:background "SeaGreen"))))
-	 (highlight-current-line-face ((t (:background "#222222"))))
+     (highlight-current-line-face ((t (:background "#222222"))))
      (italic ((t (nil))))
+
      (left-margin ((t (nil))))
      (text-cursor ((t (:background "yellow" :foreground "black"))))
      (toolbar ((t (nil))))
