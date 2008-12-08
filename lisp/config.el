@@ -1,3 +1,4 @@
+(setq inhibit-splash-screen t)
 (setq make-backup-files nil)
 (setq vc-make-backup-files nil)
 (tool-bar-mode -1)
