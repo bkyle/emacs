@@ -1,3 +1,4 @@
+(setq inhibit-splash-screen t)
 (setq make-backup-files nil)
 (setq vc-make-backup-files nil)
 (tool-bar-mode -1)
@@ -5,7 +6,7 @@
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 (column-number-mode t)
-(setq show-paren-match 1)
+(show-paren-mode)
 (setq default-abbrev-mode t)
 (setq abbrev-file-name (concat emacs-root "abbrevs.def"))
 (fset 'yes-or-no-p 'y-or-n-p)
