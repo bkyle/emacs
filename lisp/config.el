@@ -2,7 +2,7 @@
 (setq make-backup-files nil)
 (setq vc-make-backup-files nil)
 (tool-bar-mode -1)
-(menu-bar-mode -1)
+;(menu-bar-mode -1)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 (column-number-mode t)
@@ -40,6 +40,7 @@
 (define-key global-map (kbd "C-x C-/") 'comment-region)
 (define-key global-map (kbd "<f5>") 'rgrep)
 (define-key global-map (kbd "C-x C-b") 'buffer-menu)
+(define-key global-map (kbd "C-S-r") 'find-file-in-project)
 
 ; Dired-X
 (setq dired-omit-files "^#\\|\\.$\\|\\.svn")

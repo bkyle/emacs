@@ -310,3 +310,22 @@ temporary buffer.  This code only works with single-byte characters."
    (t
     (setq frame-fullscreen-mode nil)
     (set-frame-parameter nil 'fullscreen nil))))
+
+
+;;
+;; Project
+;;
+
+(defvar *find-file-in-project-history* '())
+
+(defun find-file-in-project ()
+  (interactive)
+
+  (let (files filename)
+	(visit-tags-table-buffer)
+	(setq files (tags-table-files))
+
+	(setq filename (ido-completing-read "Find File: " files nil t nil *find-file-in-project-history*))
+	(add-to-history '*find-file-in-project-history* filename)
+
+	(find-file (concat (file-name-directory tags-file-name) filename))))
