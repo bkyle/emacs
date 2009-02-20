@@ -41,6 +41,7 @@
 (define-key global-map (kbd "<f5>") 'rgrep)
 (define-key global-map (kbd "C-x C-b") 'buffer-menu)
 (define-key global-map (kbd "C-S-r") 'find-file-in-project)
+(define-key global-map (kbd "<f11>") 'frame-fullscreen-mode)
 
 ; Dired-X
 (setq dired-omit-files "^#\\|\\.$\\|\\.svn")
