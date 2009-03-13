@@ -90,8 +90,30 @@ specify tabbing to."
 ;; Maven
 ;;
 
+(defvar maven-pom-file nil)
+
+(defun run-maven ()
+  "Runs maven using the pom closest to the current buffer's directory."
+
+  (interactive)
+  (make-local-variable 'maven-pom-file)
+  (setq maven-pom-file (maven-find-pom (buffer-file-name)))
+  (unless maven-pom-file
+	(error "Couldn't find pom")
+	(return))
+  
+  (let (command)
+	(setq command (read-from-minibuffer "Maven command: " (concat "mvn -f " maven-pom-file " package")))
+	(compile command)))
+
+
+
 (defun maven-find-pom (path)
-  (let ((current-path (file-name-as-directory path))
+  "Finds the nearest pom to the given path."
+
+  (let ((current-path (if (file-directory-p (file-name-as-directory path))
+						  (file-name-as-directory path)
+						(file-name-directory path)))
         (next-path nil)
         (found-p nil))
     (catch 'done
@@ -113,7 +135,8 @@ specify tabbing to."
      (found-p
       (expand-file-name (concat (file-name-as-directory current-path) "pom.xml")))
      (t
-      (message "Couldn't find pom.xml")))))
+      (message "Couldn't find pom.xml")
+	  nil))))
 
 
 ;;
@@ -316,16 +339,10 @@ temporary buffer.  This code only works with single-byte characters."
 ;; Project
 ;;
 
-(defvar *find-file-in-project-history* '())
-
 (defun find-file-in-project ()
   (interactive)
-
   (let (files filename)
 	(visit-tags-table-buffer)
 	(setq files (tags-table-files))
-
-	(setq filename (ido-completing-read "Find File: " files nil t nil *find-file-in-project-history*))
-	(add-to-history '*find-file-in-project-history* filename)
-
+	(setq filename (ido-completing-read "Find File: " files nil))
 	(find-file (concat (file-name-directory tags-file-name) filename))))
