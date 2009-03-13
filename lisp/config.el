@@ -15,7 +15,9 @@
 
 ; Use cygwin for find on windows.
 (if (eq system-type 'windows-nt)
-	  (customize-set-variable 'grep-find-template '"c:\\cygwin\\bin\\find . <X> -type f <F> -exec grep <C> -nH -e <R> {} NUL \";\""))
+	(progn
+	  (customize-set-variable 'grep-find-template '"c:\\cygwin\\bin\\find . <X> -type f <F> -exec grep <C> -nH -e <R> {} NUL \";\"")
+	  (customize-set-variable 'ispell-program-name '"aspell")))
 
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
