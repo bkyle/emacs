@@ -75,3 +75,10 @@
 
 
 (add-hook 'sgml-mode-hook 'my-sgml-mode-hook)
+
+(defun my-text-mode-hook ()
+  (when (equal major-mode 'text-mode)
+	(longlines-mode)
+	(flyspell-mode)))
+
+(add-hook 'text-mode-hook 'my-text-mode-hook)
