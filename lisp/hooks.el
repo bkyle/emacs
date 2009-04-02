@@ -82,3 +82,9 @@
 	(flyspell-mode)))
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
+
+
+(defun my-ido-setup-hook ()
+  (setq ido-enable-flex-matching 1))
+
+(add-hook 'ido-setup-hook 'my-ido-setup-hook)

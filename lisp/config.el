@@ -11,6 +11,7 @@
 (setq abbrev-file-name (concat emacs-root "abbrevs.def"))
 (fset 'yes-or-no-p 'y-or-n-p)
 (desktop-save-mode 1)
+(ido-mode)
 
 (customize-set-variable 'fill-column 80)
 
