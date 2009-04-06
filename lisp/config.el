@@ -13,6 +13,9 @@
 (desktop-save-mode 1)
 (ido-mode)
 
+(require 'uniquify)
+(customize-set-variable 'uniquify-buffer-name-style 'forward)
+
 (customize-set-variable 'fill-column 80)
 
 ; Use cygwin for find on windows.
