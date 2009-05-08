@@ -12,6 +12,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (desktop-save-mode 1)
 (ido-mode)
+(setq dired-recursive-deletes "top")
 
 (require 'uniquify)
 (customize-set-variable 'uniquify-buffer-name-style 'forward)
