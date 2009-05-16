@@ -41,6 +41,8 @@
 
 ; Tabbing...
 (setq-default default-tab-width 4)
+(setq-default tab-stop-list (loop for x from 0 to 120 by 4 collect x))
+(setq-default indent-line-function 'tab-to-tab-stop)
 
 (add-to-list 'vc-handled-backends 'Git)
 
