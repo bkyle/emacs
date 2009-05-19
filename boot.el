@@ -7,6 +7,7 @@
   (add-path "site-lisp")
   (add-path "site-lisp/org-6.03/lisp")
   (add-path "site-lisp/slime")
+  (add-path "site-lisp/scala")
   (add-path "site-lisp/color-theme-6.6.0"))
 
 (load-library "autoloads")

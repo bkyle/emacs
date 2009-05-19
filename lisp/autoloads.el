@@ -7,6 +7,7 @@
 (autoload 'git-status "git" nil t)
 (autoload 'clojure-mode "clojure-mode" nil t)
 (autoload 'run-clojure "clojure-mode" nil t)
+(autoload 'scala-mode "scala-mode" nil t)
 
 (autoload 'markdown-mode "markdown-mode" nil t)
 (autoload 'markdown "markdown-mode" nil t)
