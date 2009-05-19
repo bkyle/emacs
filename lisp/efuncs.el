@@ -135,9 +135,7 @@ specify tabbing to."
      (found-p
       (expand-file-name (concat (file-name-as-directory current-path) "pom.xml")))
      (t
-      (message "Couldn't find pom.xml")
 	  nil))))
-
 
 ;;
 ;; HTML Stuff - Pretty much ripped from http://steve.yegge.googlepages.com/saving-time

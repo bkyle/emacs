@@ -6,6 +6,13 @@
 (setq js2-mode-squeeze-spaces nil)
 (setq js2-cleanup-whitespace nil)
 
+
+(defun my-find-file-hook ()
+  (let ((pom (maven-find-pom (buffer-file-name))))
+	(if pom (setq compile-command (concat "mvn -f " pom " compile")))))
+
+(add-hook 'find-file-hook 'my-find-file-hook)
+
 (defun my-js2-mode-hook ()
   "My j2-mode hook"
   (setq tab-width 4)
