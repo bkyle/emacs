@@ -23,7 +23,8 @@
 (if (eq system-type 'windows-nt)
 	(progn
 	  (customize-set-variable 'grep-find-template '"c:\\cygwin\\bin\\find . <X> -type f <F> -exec grep <C> -nH -e <R> {} NUL \";\"")
-	  (customize-set-variable 'ispell-program-name '"aspell")))
+	  (customize-set-variable 'ispell-program-name '"aspell")
+	  (setq find-program "c:\\cygwin\\bin\\find")))
 
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -31,7 +32,6 @@
 
 ; Start the emacs server
 (server-start)
-
 
 ; Only enable the current line highlighting when there is a windowing system.
 (when window-system
@@ -52,6 +52,7 @@
 (define-key global-map (kbd "C-x C-b") 'buffer-menu)
 (define-key global-map (kbd "C-S-r") 'find-file-in-project)
 (define-key global-map (kbd "<f11>") 'frame-fullscreen-mode)
+
 
 ; Dired-X
 (setq dired-omit-files "^#\\|\\.$\\|\\.svn")
