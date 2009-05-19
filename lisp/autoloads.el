@@ -23,6 +23,3 @@
   (interactive)
   (color-theme-initialize)
   (color-theme-standard))
-
-(require 'semantic-load)
-(require 'ecb-autoloads)

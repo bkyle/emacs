@@ -55,7 +55,3 @@
 
 ; Dired-X
 (setq dired-omit-files "^#\\|\\.$\\|\\.svn")
-
-; Semantic -- part of config for ecb
-(setq semantic-load-turn-everything-on t)
-
