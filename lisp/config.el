@@ -13,6 +13,7 @@
 (desktop-save-mode 1)
 (ido-mode)
 (setq dired-recursive-deletes "top")
+(setq compilation-scroll-output t)
 
 (require 'uniquify)
 (customize-set-variable 'uniquify-buffer-name-style 'forward)
@@ -45,7 +46,6 @@
 (setq-default indent-line-function 'tab-to-tab-stop)
 
 (add-to-list 'vc-handled-backends 'Git)
-
 
 ; Key mapping
 (define-key global-map (kbd "C-x C-/") 'comment-region)

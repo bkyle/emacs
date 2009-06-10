@@ -65,7 +65,7 @@
      (font-lock-variable-name-face ((t (:foreground "#7587A6"))))
      (font-lock-warning-face ((t (:bold t :foreground "Pink"))))
 
-	 (fringe ((t (:background "#131313"))))
+     (fringe ((t (:background "#131313"))))
 
      (gui-element ((t (:background "#D4D0C8" :foreground "black"))))
      (region ((t (:background "#27292A"))))

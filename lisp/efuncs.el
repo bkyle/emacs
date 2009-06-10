@@ -125,8 +125,9 @@ specify tabbing to."
              ((equal "pom.xml" (file-name-nondirectory file))
               (setq found-p t)
               (throw 'done t))
-             ((equal ".." (file-name-nondirectory file))
-              (setq next-path file))))
+             ((and (equal ".." (file-name-nondirectory file))
+				   (not (equal current-path (file-truename file))))
+              (setq next-path (file-truename file)))))
           (if (not next-path)
               (throw 'done t))
           (setq current-path next-path)
@@ -240,6 +241,7 @@ the document instead of being included inline."
 	 
 ;;
 ;; XFDL Stuff
+;;
 
 (defun xfdl-decode-buffer ()
   (interactive)
