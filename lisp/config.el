@@ -13,6 +13,7 @@
 (desktop-save-mode 1)
 (ido-mode)
 (setq dired-recursive-deletes "top")
+(setq compilation-scroll-output t)
 
 (require 'uniquify)
 (customize-set-variable 'uniquify-buffer-name-style 'forward)
