@@ -86,6 +86,13 @@ specify tabbing to."
 	  (setq counter (+ 1 counter)))
 	(nreverse tab-stops)))
 
+(defun occurances-of-word ()
+  "Finds all occurances of the word at the point in the buffer."
+  (interactive)
+  (save-excursion
+	(mark-word)
+	(occur (buffer-substring (mark) (point)))))
+
 ;;
 ;; Maven
 ;;
@@ -344,3 +351,47 @@ temporary buffer.  This code only works with single-byte characters."
 	(setq files (tags-table-files))
 	(setq filename (ido-completing-read "Find File: " files nil))
 	(find-file (concat (file-name-directory tags-file-name) filename))))
+
+
+(defun html-pretty-print (mark point)
+  (interactive "r")
+
+  (let ((point-delta 0))
+
+	; tags
+	(save-excursion
+	  (while (re-search-forward "<" (+ point point-delta) t)
+		(save-excursion
+		  (goto-char (match-beginning 0))
+		  (unless (= (point) 1)
+			(backward-char)
+			(unless (looking-at "\n")
+			  (forward-char)
+			  (insert "\n")
+			  (incf point-delta))))))
+
+	; attributes
+	(save-excursion
+	  (while (re-search-forward "\\w+=" (+ point point-delta) t)
+		(save-excursion
+		  (goto-char (match-beginning 0))
+		  (insert "\n")
+		  (incf point-delta))))
+
+	; style attribute
+	(save-excursion
+	  (while (re-search-forward "style=\"\\([^\"]*\\)\"" (+ point point-delta) t)
+		(save-excursion
+		(save-restriction
+		  (narrow-to-region (match-beginning 0) (match-end 0))
+		  (goto-char (match-beginning 1))
+		  (while (re-search-forward ";" nil t)
+			(save-excursion
+			  (goto-char (+ (match-beginning 0) 1))
+			  (unless (looking-at "\"")
+				(insert "\n")
+				(incf point-delta))))))))
+
+	; indent the whole thing
+	(save-excursion
+	  (indent-region mark (+ point point-delta)))))
