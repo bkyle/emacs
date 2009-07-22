@@ -113,7 +113,12 @@ specify tabbing to."
 	(setq command (read-from-minibuffer "Maven command: " (concat "mvn -f " maven-pom-file " package")))
 	(compile command)))
 
-
+(defun find-pom-file ()
+  "Finds the nearest pom to the current file."
+  (interactive)
+  (let ((pom (maven-find-pom buffer-file-name)))
+	(if pom
+		(find-file pom))))
 
 (defun maven-find-pom (path)
   "Finds the nearest pom to the given path."
