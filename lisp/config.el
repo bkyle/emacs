@@ -2,7 +2,7 @@
 (setq make-backup-files nil)
 (setq vc-make-backup-files nil)
 (tool-bar-mode -1)
-;(menu-bar-mode -1)
+(menu-bar-mode -1)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 (column-number-mode t)
