@@ -57,3 +57,5 @@
 
 ; Dired-X
 (setq dired-omit-files "^#\\|\\.$\\|\\.svn")
+
+(color-theme-standard)
