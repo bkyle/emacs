@@ -94,63 +94,6 @@ specify tabbing to."
 	(occur (buffer-substring (mark) (point)))))
 
 ;;
-;; Maven
-;;
-
-(defvar maven-pom-file nil)
-
-(defun run-maven ()
-  "Runs maven using the pom closest to the current buffer's directory."
-
-  (interactive)
-  (make-local-variable 'maven-pom-file)
-  (setq maven-pom-file (maven-find-pom (buffer-file-name)))
-  (unless maven-pom-file
-	(error "Couldn't find pom")
-	(return))
-  
-  (let (command)
-	(setq command (read-from-minibuffer "Maven command: " (concat "mvn -f " maven-pom-file " package")))
-	(compile command)))
-
-(defun find-pom-file ()
-  "Finds the nearest pom to the current file."
-  (interactive)
-  (let ((pom (maven-find-pom buffer-file-name)))
-	(if pom
-		(find-file pom))))
-
-(defun maven-find-pom (path)
-  "Finds the nearest pom to the given path."
-
-  (let ((current-path (if (file-directory-p (file-name-as-directory path))
-						  (file-name-as-directory path)
-						(file-name-directory path)))
-        (next-path nil)
-        (found-p nil))
-    (catch 'done
-      (while (not found-p)
-        (let ((files (directory-files current-path t))
-              (next-path nil))
-          (dolist (file files)
-            (cond
-             ((equal "pom.xml" (file-name-nondirectory file))
-              (setq found-p t)
-              (throw 'done t))
-             ((and (equal ".." (file-name-nondirectory file))
-				   (not (equal current-path (file-truename file))))
-              (setq next-path (file-truename file)))))
-          (if (not next-path)
-              (throw 'done t))
-          (setq current-path next-path)
-          (setq next-path nil))))
-    (cond
-     (found-p
-      (expand-file-name (concat (file-name-as-directory current-path) "pom.xml")))
-     (t
-	  nil))))
-
-;;
 ;; HTML Stuff - Pretty much ripped from http://steve.yegge.googlepages.com/saving-time
 ;;
 

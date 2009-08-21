@@ -10,6 +10,9 @@
 (autoload 'scala-mode "scala-mode" nil t)
 (autoload 'erlang-mode "erlang" nil t)
 
+(autoload 'maven-mode "maven-mode" nil t)
+(autoload 'find-pom-file "maven-mode" nil t)
+
 (autoload 'markdown-mode "markdown-mode" nil t)
 (autoload 'markdown "markdown-mode" nil t)
 (autoload 'markdown-preview "markdown-mode" nil t)
