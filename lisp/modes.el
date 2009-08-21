@@ -7,3 +7,4 @@
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
 (add-to-list 'auto-mode-alist '("\\.iwd$" . archive-mode))
+(add-to-list 'auto-mode-alist '("\\.erl$" . erlang-mode))
