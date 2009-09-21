@@ -10,7 +10,7 @@
 (setq default-abbrev-mode t)
 (setq abbrev-file-name (concat emacs-root "abbrevs.def"))
 (fset 'yes-or-no-p 'y-or-n-p)
-(desktop-save-mode 1)
+;(desktop-save-mode 1)
 (ido-mode)
 (setq dired-recursive-deletes "top")
 (setq compilation-scroll-output t)
@@ -53,6 +53,13 @@
 (define-key global-map (kbd "C-x C-b") 'buffer-menu)
 (define-key global-map (kbd "C-S-r") 'find-file-in-project)
 (define-key global-map (kbd "<f11>") 'frame-fullscreen-mode)
+
+; Under 23.1+ on Mac the both Backspace and Delete are mapped to Backspace.
+; Also, the command key is set as super instead of meta by default.
+(when (and (eq system-type 'darwin)
+		 (eq emacs-major-version 23))
+	(define-key global-map (kbd "<kp-delete>") 'delete-char)
+    (setq ns-command-modifier (quote meta)))
 
 
 ; Dired-X
