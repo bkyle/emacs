@@ -343,3 +343,13 @@ temporary buffer.  This code only works with single-byte characters."
 	; indent the whole thing
 	(save-excursion
 	  (indent-region mark (+ point point-delta)))))
+
+(defun reload-dot-emacs ()
+  "Reloads the emacs configuration."
+
+  (interactive)
+  (let ((files '("~/.emacs" "~/_emacs")))
+	(dolist (file files)
+	  (when (file-exists-p file)
+		(load-file file)
+		(return)))))
