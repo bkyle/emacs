@@ -6,7 +6,7 @@
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 (column-number-mode t)
-(show-paren-mode)
+(show-paren-mode t)
 (setq default-abbrev-mode t)
 (setq abbrev-file-name (concat emacs-root "abbrevs.def"))
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -14,6 +14,7 @@
 (ido-mode)
 (setq dired-recursive-deletes "top")
 (setq compilation-scroll-output t)
+(setq split-width-threshold nil)
 
 (require 'uniquify)
 (customize-set-variable 'uniquify-buffer-name-style 'forward)
