@@ -1,7 +1,6 @@
 (setq inhibit-splash-screen t)
 (setq make-backup-files nil)
 (setq vc-make-backup-files nil)
-(tool-bar-mode -1)
 (menu-bar-mode -1)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
@@ -36,9 +35,11 @@
 
 ; Only enable the current line highlighting when there is a windowing system.
 (when window-system
+  (tool-bar-mode -1)
   (require 'highlight-current-line)
   (highlight-current-line-on t)
-  (set-face-background 'highlight-current-line-face "light yellow"))
+  (set-face-background 'highlight-current-line-face "light yellow")
+  (color-theme-standard))
 
 ; Tabbing...
 (setq-default default-tab-width 4)
@@ -58,11 +59,10 @@
 ; Also, the command key is set as super instead of meta by default.
 (when (and (eq system-type 'darwin)
 		 (eq emacs-major-version 23))
-	(define-key global-map (kbd "<kp-delete>") 'delete-char)
-    (setq ns-command-modifier (quote meta)))
+  (blink-cursor-mode t)
+  (define-key global-map (kbd "<kp-delete>") 'delete-char)
+  (setq ns-command-modifier (quote meta)))
 
 
 ; Dired-X
 (setq dired-omit-files "^#\\|\\.$\\|\\.svn")
-
-(color-theme-standard)
