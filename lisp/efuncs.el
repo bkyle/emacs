@@ -353,3 +353,19 @@ temporary buffer.  This code only works with single-byte characters."
 	  (when (file-exists-p file)
 		(load-file file)
 		(return)))))
+
+(defun decompile-class ()
+  "Decompiles a java class file."
+  (interactive)
+  (let (data filename)
+	(setq data (buffer-substring (point-min) (point-max)))
+	(delete-region (point-min) (point-max))
+	(setq filename (file-name-nondirectory buffer-file-name))
+	(with-temp-file filename
+	  (insert data)
+	  (set-buffer-file-coding-system 'binary))
+
+	(shell-command (concat "javap -c -l -private " (file-name-sans-extension filename)) (current-buffer))
+	(delete-file filename)
+	(goto-char (point-min))
+	(set-buffer-modified-p nil)))
