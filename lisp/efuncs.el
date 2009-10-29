@@ -354,36 +354,3 @@ temporary buffer.  This code only works with single-byte characters."
 		(load-file file)
 		(return)))))
 
-
-
-(defun class-mode ()
-  ""
-  (interactive)
-  (kill-all-local-variables)
-  (setq major-mode 'class-mode)
-  (setq mode-name "Class")
-  (class-decompile))
-  
-(defun class-decompile-file (filename &optional buffer)
-  "Decompiles a java class file.  Optionally a buffer can be given that will receive
-the decompiled code."
-  (save-selected-window
-	(save-window-excursion
-	  (shell-command (concat "javap -c -l -s -private " (file-name-sans-extension filename)) buffer))))
-
-
-(defun class-decompile ()
-  "Decompiles a java class file in the current buffer."
-
-  (let (data filename)
-	(setq data (buffer-substring (point-min) (point-max)))
-	(delete-region (point-min) (point-max))
-	(setq filename (file-name-nondirectory buffer-file-name))
-	(with-temp-file filename
-	  (set-buffer-file-coding-system 'binary)
-	  (insert data))
-	(class-decompile-file filename (current-buffer))
-	(delete-file filename)
-	(goto-char (point-min))
-	(set-buffer-modified-p nil)))
-
