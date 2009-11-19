@@ -1,7 +1,7 @@
 (setq inhibit-splash-screen t)
 (setq make-backup-files nil)
 (setq vc-make-backup-files nil)
-(tool-bar-mode -1)
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (menu-bar-mode -1)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
@@ -11,7 +11,7 @@
 (setq abbrev-file-name (concat emacs-root "abbrevs.def"))
 (fset 'yes-or-no-p 'y-or-n-p)
 ;(desktop-save-mode 1)
-(ido-mode)
+(if (fboundp 'ido-mode) (ido-mode))
 (setq dired-recursive-deletes "top")
 (setq compilation-scroll-output t)
 (setq split-width-threshold nil)
@@ -66,4 +66,5 @@
 ; Dired-X
 (setq dired-omit-files "^#\\|\\.$\\|\\.svn")
 
-(color-theme-standard)
+(if window-system
+	(color-theme-standard))
