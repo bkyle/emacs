@@ -89,3 +89,17 @@
   (setq ido-enable-flex-matching 1))
 
 (add-hook 'ido-setup-hook 'my-ido-setup-hook)
+
+
+(defun my-mail-mode-hook ()
+  (longlines-mode)
+  (flyspell-mode))
+
+(add-hook 'mail-mode-hook 'my-mail-mode-hook)
+
+(defun my-mail-send-hook ()
+  ; Have to turn off longlones-mode being sending otherwise the text in the clipboard
+  ; will contain the artificial line breaks added by longlines-mode
+  (longlines-mode nil))
+
+(add-hook 'mail-send-hook 'my-mail-send-hook)
