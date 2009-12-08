@@ -354,3 +354,18 @@ temporary buffer.  This code only works with single-byte characters."
 		(load-file file)
 		(return)))))
 
+
+(defun list-tags-for-buffer ()
+  "Lists all of the tags for the current buffer."
+  (interactive)
+  (let (file-name files)
+	(setq file-name (buffer-file-name))
+	(visit-tags-table-buffer)
+	(setq files (tags-table-files))
+	(dolist (file files)
+	  (when (equal (substring file-name (- (length file-name) (length file))) file)
+		  (list-tags file)
+		  (pop-to-buffer "*Tags List*")))))
+
+
+

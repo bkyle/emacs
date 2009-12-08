@@ -54,6 +54,7 @@
 (define-key global-map (kbd "C-x C-b") 'buffer-menu)
 (define-key global-map (kbd "C-S-r") 'find-file-in-project)
 (define-key global-map (kbd "<f11>") 'frame-fullscreen-mode)
+(define-key global-map (kbd "C-2") 'list-tags-for-buffer)
 
 ; Under 23.1+ on Mac the both Backspace and Delete are mapped to Backspace.
 ; Also, the command key is set as super instead of meta by default.
