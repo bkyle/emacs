@@ -362,10 +362,15 @@ temporary buffer.  This code only works with single-byte characters."
 	(setq file-name (buffer-file-name))
 	(visit-tags-table-buffer)
 	(setq files (tags-table-files))
-	(dolist (file files)
-	  (when (equal (substring file-name (- (length file-name) (length file))) file)
+	(let ((foundp nil))
+	  (dolist (file files)
+		(when (equal (substring file-name (- (length file-name) (length file))) file)
+		  (setq foundp t)
 		  (list-tags file)
-		  (pop-to-buffer "*Tags List*")))))
+		  (pop-to-buffer "*Tags List*")))
+	  (when (not foundp)
+		(message "Current buffer is not in the loaded tags table.")))))
+
 
 
 
