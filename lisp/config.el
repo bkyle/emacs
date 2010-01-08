@@ -24,7 +24,7 @@
 ; Use cygwin for find on windows.
 (if (eq system-type 'windows-nt)
 	(progn
-	  (customize-set-variable 'grep-find-template '"c:\\cygwin\\bin\\find . <X> -type f <F> -exec grep <C> -nH -e <R> {} NUL \";\"")
+	  (customize-set-variable 'grep-find-template '"c:\\cygwin\\bin\\find . <X> -type f <F> -exec grep <C> -nH -e <R> {} \";\"")
 	  (customize-set-variable 'ispell-program-name '"aspell")
 	  (setq find-program "c:\\cygwin\\bin\\find")))
 
