@@ -72,7 +72,8 @@
 									 (when point
 									   (goto-char point)
 									   t))
-								   (insert "/")))))								  
+								   (insert "/"))))
+  (zencoding-mode))
 
 
 (add-hook 'sgml-mode-hook 'my-sgml-mode-hook)

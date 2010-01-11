@@ -19,6 +19,8 @@
 (autoload 'markdown "markdown-mode" nil t)
 (autoload 'markdown-preview "markdown-mode" nil t)
 
+(autoload 'zencoding-mode "zencoding-mode" nil t)
+
 
 (require 'color-theme-autoloads)
 
