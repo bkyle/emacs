@@ -61,7 +61,8 @@
 		 (eq emacs-major-version 23))
   (blink-cursor-mode t)
   (define-key global-map (kbd "<kp-delete>") 'delete-char)
-  (setq ns-command-modifier (quote meta)))
+  (setq ns-command-modifier (quote meta))
+  (customize-set-variable 'ns-pop-up-frames nil))
 
 
 ; Dired-X
