@@ -1,18 +1,20 @@
 (setq inhibit-splash-screen t)
 (setq make-backup-files nil)
 (setq vc-make-backup-files nil)
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (menu-bar-mode -1)
 (partial-completion-mode t)
 (setq dired-recursive-deletes t)
 (column-number-mode t)
-(show-paren-mode)
+(show-paren-mode t)
 (setq default-abbrev-mode t)
 (setq abbrev-file-name (concat emacs-root "abbrevs.def"))
 (fset 'yes-or-no-p 'y-or-n-p)
 ;(desktop-save-mode 1)
-(ido-mode)
+(if (fboundp 'ido-mode) (ido-mode))
 (setq dired-recursive-deletes "top")
 (setq compilation-scroll-output t)
+(setq split-width-threshold nil)
 
 (require 'uniquify)
 (customize-set-variable 'uniquify-buffer-name-style 'forward)
@@ -26,7 +28,7 @@
 ; Use cygwin for find on windows.
 (if (eq system-type 'windows-nt)
 	(progn
-	  (customize-set-variable 'grep-find-template '"c:\\cygwin\\bin\\find . <X> -type f <F> -exec grep <C> -nH -e <R> {} NUL \";\"")
+	  (customize-set-variable 'grep-find-template '"c:\\cygwin\\bin\\find . <X> -type f <F> -exec grep <C> -nH -e <R> {} \";\"")
 	  (customize-set-variable 'ispell-program-name '"aspell")
 	  (setq find-program "c:\\cygwin\\bin\\find")))
 
@@ -58,6 +60,7 @@
 (define-key global-map (kbd "C-x C-b") 'buffer-menu)
 (define-key global-map (kbd "C-S-r") 'find-file-in-project)
 (define-key global-map (kbd "<f11>") 'frame-fullscreen-mode)
+(define-key global-map (kbd "C-2") 'list-tags-for-buffer)
 
 ; Under 23.1+ on Mac the both Backspace and Delete are mapped to Backspace.
 ; Also, the command key is set as super instead of meta by default.
@@ -71,3 +74,6 @@
 
 ; Dired-X
 (setq dired-omit-files "^#\\|\\.$\\|\\.svn")
+
+(if window-system
+	(color-theme-standard))

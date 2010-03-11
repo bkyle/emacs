@@ -343,3 +343,34 @@ temporary buffer.  This code only works with single-byte characters."
 	; indent the whole thing
 	(save-excursion
 	  (indent-region mark (+ point point-delta)))))
+
+(defun reload-dot-emacs ()
+  "Reloads the emacs configuration."
+
+  (interactive)
+  (let ((files '("~/.emacs" "~/_emacs")))
+	(dolist (file files)
+	  (when (file-exists-p file)
+		(load-file file)
+		(return)))))
+
+
+(defun list-tags-for-buffer ()
+  "Lists all of the tags for the current buffer."
+  (interactive)
+  (let (file-name files)
+	(setq file-name (buffer-file-name))
+	(visit-tags-table-buffer)
+	(setq files (tags-table-files))
+	(let ((foundp nil))
+	  (dolist (file files)
+		(when (equal (substring file-name (- (length file-name) (length file))) file)
+		  (setq foundp t)
+		  (list-tags file)
+		  (pop-to-buffer "*Tags List*")))
+	  (when (not foundp)
+		(message "Current buffer is not in the loaded tags table.")))))
+
+
+
+
