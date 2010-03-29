@@ -29,7 +29,8 @@
 (defun my-c-mode-common-hook ()
   "My c-mode-common-hook"
   (setq tab-width 4)
-  (setq c-basic-offset tab-width))
+  (setq c-basic-offset tab-width)
+  (local-set-key (kbd "C-c o") 'ff-find-other-file))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
