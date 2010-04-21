@@ -40,7 +40,7 @@
       (background-mode . dark)
       (border-color . "#131313")
       (cursor-color . "#A7A7A7")
-      (foreground-color . "#F8F8F8")
+      (foreground-color . "#D0D0D0")
       (mouse-color . "sienna1"))
      (default ((t (:background "#131313" :foreground "white"))))
      (blue ((t (:foreground "blue"))))
