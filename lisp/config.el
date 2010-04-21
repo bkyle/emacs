@@ -47,7 +47,7 @@
 (add-to-list 'vc-handled-backends 'Git)
 
 ; Key mapping
-(define-key global-map (kbd "C-x C-/") 'comment-region)
+(define-key global-map (kbd "C-x C-/") 'toggle-comment-region)
 (define-key global-map (kbd "<f5>") 'rgrep)
 (define-key global-map (kbd "C-x C-b") 'ibuffer)
 (define-key global-map (kbd "C-S-r") 'find-file-in-project)

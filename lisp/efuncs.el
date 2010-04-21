@@ -404,3 +404,12 @@ temporary buffer.  This code only works with single-byte characters."
 
 
 
+(defun toggle-comment-region (mark point)
+  "Toggles comments on a region."
+  (interactive "r")
+  (save-excursion
+	(goto-char mark)
+	(beginning-of-line)
+	(if (looking-at comment-start)
+		(uncomment-region mark point)
+	  (comment-region mark point))))
