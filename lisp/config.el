@@ -51,7 +51,7 @@
 ; Key mapping
 (define-key global-map (kbd "C-x C-/") 'comment-region)
 (define-key global-map (kbd "<f5>") 'rgrep)
-(define-key global-map (kbd "C-x C-b") 'buffer-menu)
+(define-key global-map (kbd "C-x C-b") 'ibuffer)
 (define-key global-map (kbd "C-S-r") 'find-file-in-project)
 (define-key global-map (kbd "<f11>") 'frame-fullscreen-mode)
 (define-key global-map (kbd "C-2") 'list-tags-for-buffer)
@@ -69,3 +69,4 @@
 
 (if window-system
 	(color-theme-standard))
+
