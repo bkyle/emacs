@@ -68,7 +68,7 @@
 
 (defun humanize-byte-count (count)
   "Formats the passed count as bytes, kb and mb"
-  (format "%db; %dkb; %dmb" count (/ count 1024) (/ count (* 1024 1024))))
+  (format "%.2fB; %.2fKB; %.2fMB" count (/ count 1024.0) (/ count (* 1024.0 1024.0))))
 
 (defun* configure-tabbing (&key (width 4) (use-tabs t))
   (setq indent-tabs-mode use-tabs)
