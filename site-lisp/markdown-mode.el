@@ -1,3 +1,4 @@
+
 ;;; markdown-mode.el --- Major mode to edit Markdown files in Emacs
 
 ;; Copyright (C) 2007, 2008 Jason Blevins
@@ -260,6 +261,11 @@
   "Automatically indent new lines when enter key is pressed"
   :group 'markdown
   :type 'boolean)
+
+(defcustom markdown-preview-css-filename "~/.markdown.css"
+  "CSS file to use when generating a preview"
+  :group 'markdown
+  :type 'string)
 
 ;;; Font lock =================================================================
 
@@ -762,7 +768,7 @@ as preformatted text."
     (define-key markdown-mode-map "\C-c\C-tt" 'markdown-insert-title)
     (define-key markdown-mode-map "\C-c\C-ts" 'markdown-insert-section)
 	;; Indentation
-	(define-key markdown-mode-map "\C-m" 'markdown-enter-key)
+;;	(define-key markdown-mode-map "\C-m" 'markdown-enter-key)
     ;; Visibility cycling
     (define-key markdown-mode-map (kbd "<tab>") 'markdown-cycle)
     (define-key markdown-mode-map (kbd "<S-iso-lefttab>") 'markdown-shifttab)
@@ -1069,16 +1075,24 @@ Calls `markdown-cycle' with argument t"
 (defun markdown ()
   "Run markdown on the current buffer and preview the output in another buffer."
   (interactive)
-    (if (and (boundp 'transient-mark-mode) transient-mark-mode mark-active)
-        (shell-command-on-region (region-beginning) (region-end) markdown-command
-                                 "*markdown-output*" nil)
-      (shell-command-on-region (point-min) (point-max) markdown-command
-                               "*markdown-output*" nil)))
+  (if (and (boundp 'transient-mark-mode) transient-mark-mode mark-active)
+	  (shell-command-on-region (region-beginning) (region-end) markdown-command
+							   "*markdown-output*" nil)
+	(shell-command-on-region (point-min) (point-max) markdown-command
+							 "*markdown-output*" nil)))
+
+
+
 
 (defun markdown-preview ()
   "Run markdown on the current buffer and preview the output in a browser."
   (interactive)
   (markdown)
+  (save-excursion
+	(pop-to-buffer "*markdown-output*")
+	(goto-char (point-min))
+	(insert (concat "<link rel=\"stylesheet\" media=\"screen\" href=\"file:///" (file-truename markdown-preview-css-filename) "\"><div id=\"container\">")))
+
   (browse-url-of-buffer "*markdown-output*"))
 
 

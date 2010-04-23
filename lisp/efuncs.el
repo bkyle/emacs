@@ -371,6 +371,45 @@ temporary buffer.  This code only works with single-byte characters."
 	  (when (not foundp)
 		(message "Current buffer is not in the loaded tags table.")))))
 
+(defun lorem-ipsum (what amount)
+  "Generates [amount] [what]s of Lorem Ipsum."
+  (interactive "s[p]aragraphs, [w]ords, or [b]ytes (default: p): \nsAmount (default: 5): ")
+  (let ((buffer (buffer-name (current-buffer)))
+		(url (concat "http://www.lipsum.com/feed/xml?what="
+					 (cond
+					  ((equal what "w") "words")
+					  ((equal what "b") "bytes")
+					  (t "paras"))
+					 "&amount="
+					 (if (= (length amount) 0)
+						 "5"
+					   amount)
+					 "&start=yes")))
+
+	(url-http (url-generic-parse-url url)
+			  (lambda (buffer)
+				(save-excursion
+				  (let ((start 0) (end 0) (text nil))
+					(goto-char (point-min))
+					(setq start (re-search-forward "<lipsum>"))
+					(goto-char (point-max))
+					(setq end (re-search-backward "</lipsum>"))
+					(if (and start end)
+						(progn
+						  (setq text (buffer-substring-no-properties start end))
+						  (pop-to-buffer buffer)
+						  (insert text))
+					  (error "Error generating Lorem Ipsum")))))
+			  (list buffer))))
 
 
 
+(defun toggle-comment-region (mark point)
+  "Toggles comments on a region."
+  (interactive "r")
+  (save-excursion
+	(goto-char mark)
+	(beginning-of-line)
+	(if (looking-at comment-start)
+		(uncomment-region mark point)
+	  (comment-region mark point))))

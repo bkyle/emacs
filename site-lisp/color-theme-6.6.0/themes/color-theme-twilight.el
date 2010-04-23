@@ -40,7 +40,7 @@
       (background-mode . dark)
       (border-color . "#131313")
       (cursor-color . "#A7A7A7")
-      (foreground-color . "#F8F8F8")
+      (foreground-color . "#D0D0D0")
       (mouse-color . "sienna1"))
      (default ((t (:background "#131313" :foreground "white"))))
      (blue ((t (:foreground "blue"))))
@@ -69,11 +69,17 @@
 
      (gui-element ((t (:background "#D4D0C8" :foreground "black"))))
      (region ((t (:background "#27292A"))))
+
+	 (minibuffer-prompt ((t (:foreground "white"))))
      (mode-line ((t (:background "grey75" :foreground "black"))))
+	 (mode-line-highlight ((t (:foreground "black"))))
+	 (mode-line-inactive ((t (:foreground "black" :background "grey75"))))
+
      (highlight ((t (:background "#222222"))))
      (highline-face ((t (:background "SeaGreen"))))
      (highlight-current-line-face ((t (:background "#222222"))))
      (italic ((t (nil))))
+
 
      (left-margin ((t (nil))))
      (text-cursor ((t (:background "yellow" :foreground "black"))))

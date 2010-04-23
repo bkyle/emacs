@@ -199,6 +199,7 @@ If you are missing standard faces in this theme, please notify the maintainer."
      (message-header-to-face ((t (:foreground "MidnightBlue" :bold t))))
      (message-header-xheader-face ((t (:foreground "blue"))))
      (message-separator-face ((t (:foreground "brown"))))
+	 (minibuffer-prompt ((t (:foreground "black"))))
      (modeline ((t (:foreground "black" :background "grey75"))))
      (modeline-buffer-id ((t (:foreground "black" :background "grey75"))))
      (modeline-mousable ((t (:foreground "black" :background "grey75"))))
