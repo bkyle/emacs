@@ -105,7 +105,7 @@ specify tabbing to."
         (set-buffer standard-output)
         (insert "<pre>")
         (save-excursion (insert text))
-        (save-excursion (html-escape-text))
+        (save-excursion (html-escape-text (point-min) (point-max)))
         (while (not (eobp))
           (let ((next-change
                  (or (next-single-property-change (point) 'face (current-buffer))
@@ -128,12 +128,25 @@ specify tabbing to."
          (insert text)
          (insert "</span>"))))))
 
-(defun html-escape-text ()
-  (dolist (escape 
-           '( ("&" . "&amp;")
-              ("<" . "&lt;")
-              (">" . "&gt;")))
-    (save-excursion (replace-string (car escape) (cdr escape)))))
+(defun html-escape-text (mark point)
+  (interactive "r")
+  (save-excursion
+	(save-restriction
+	  (narrow-to-region mark point)
+	  (goto-char (point-min))
+	  (dolist (escape 
+			   '( ("&" . "&amp;")
+				  ("<" . "&lt;")
+				  (">" . "&gt;")))
+		(save-excursion (replace-string (car escape) (cdr escape)))))))
+
+(defun html-query-escape-text (mark point)
+  (interactive "r")
+  (save-excursion
+	(dolist (escape 
+			 '( ("<" . "&lt;")
+				(">" . "&gt;")))
+	  (save-excursion (query-replace-regexp (car escape) (cdr escape))))))
 
 ;;
 ;; Blog Stuff
