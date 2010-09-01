@@ -68,7 +68,7 @@
 
 (defun humanize-byte-count (count)
   "Formats the passed count as bytes, kb and mb"
-  (format "%db; %dkb; %dmb" count (/ count 1024) (/ count (* 1024 1024))))
+  (format "%.2fB; %.2fKB; %.2fMB" count (/ count 1024.0) (/ count (* 1024.0 1024.0))))
 
 (defun* configure-tabbing (&key (width 4) (use-tabs t))
   (setq indent-tabs-mode use-tabs)
@@ -105,7 +105,7 @@ specify tabbing to."
         (set-buffer standard-output)
         (insert "<pre>")
         (save-excursion (insert text))
-        (save-excursion (html-escape-text))
+        (save-excursion (html-escape-text (point-min) (point-max)))
         (while (not (eobp))
           (let ((next-change
                  (or (next-single-property-change (point) 'face (current-buffer))
@@ -128,12 +128,25 @@ specify tabbing to."
          (insert text)
          (insert "</span>"))))))
 
-(defun html-escape-text ()
-  (dolist (escape 
-           '( ("&" . "&amp;")
-              ("<" . "&lt;")
-              (">" . "&gt;")))
-    (save-excursion (replace-string (car escape) (cdr escape)))))
+(defun html-escape-text (mark point)
+  (interactive "r")
+  (save-excursion
+	(save-restriction
+	  (narrow-to-region mark point)
+	  (goto-char (point-min))
+	  (dolist (escape 
+			   '( ("&" . "&amp;")
+				  ("<" . "&lt;")
+				  (">" . "&gt;")))
+		(save-excursion (replace-string (car escape) (cdr escape)))))))
+
+(defun html-query-escape-text (mark point)
+  (interactive "r")
+  (save-excursion
+	(dolist (escape 
+			 '( ("<" . "&lt;")
+				(">" . "&gt;")))
+	  (save-excursion (query-replace-regexp (car escape) (cdr escape))))))
 
 ;;
 ;; Blog Stuff
@@ -410,7 +423,6 @@ temporary buffer.  This code only works with single-byte characters."
   (save-excursion
 	(goto-char mark)
 	(beginning-of-line)
-	(forward-to-indentation)
 	(if (looking-at comment-start)
 		(uncomment-region mark point)
 	  (comment-region mark point))))
