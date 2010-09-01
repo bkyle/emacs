@@ -410,7 +410,6 @@ temporary buffer.  This code only works with single-byte characters."
   (save-excursion
 	(goto-char mark)
 	(beginning-of-line)
-	(forward-to-indentation)
 	(if (looking-at comment-start)
 		(uncomment-region mark point)
 	  (comment-region mark point))))
