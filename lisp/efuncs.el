@@ -426,3 +426,48 @@ temporary buffer.  This code only works with single-byte characters."
 	(if (looking-at comment-start)
 		(uncomment-region mark point)
 	  (comment-region mark point))))
+
+(defun send-buffer-to-marsedit ()
+  "Sends the contents of the current buffer to MarsEdit as a new blog post."
+  (interactive)
+  (save-excursion
+	(kill-ring-save (point-min) (point-max))
+	(shell-command "osascript ~/Scripts/New\\ Blog\\ Post\\ From\\ Clipboard.applescript")))
+
+(defun run-markdown-and-send-buffer-to-marsedit ()
+  "Runs markdown on the current buffer and sends it to MarsEdit as a new blog post."
+  (interactive)
+  (save-excursion
+	(save-window-excursion
+	  (markdown)
+	  (pop-to-buffer "*markdown-output*")
+	  (send-buffer-to-marsedit))))
+
+(defun search-up-directory-tree-for-file (filename directory)
+  "Searches up the directory tree for a file with the given name returning the full path
+of the file or nil if it wasn't found."
+  (if (directory-contains-file-p filename directory) directory
+	(let ((parent (parent-directory directory)))
+	  (if parent (search-up-directory-tree-for-file filename parent) nil))))
+
+(defun parent-directory (directory)
+  "Returns the parent directory of the passed directory.  If there is no parent directory
+nil is returned."
+  (let ((parent (file-truename (concat directory "/.."))))
+	(if (and (file-exists-p parent)
+			 (not (string-equal directory parent)))
+		parent
+	  nil)))
+
+(defun directory-contains-file-p (filename directory)
+  (let ((files (file-expand-wildcards (concat directory "/" filename))))
+	(if (> (length files) 0)
+	    (nth 0 files) nil)))
+
+(defun xcodebuild ()
+  (interactive)
+  (let* ((filename (or (buffer-file-name) ""))
+	 (directory (or (file-name-directory filename) ""))
+	 (xcodeproj (search-up-directory-tree-for-file "*.xcodeproj" directory)))
+    (if xcodeproj
+		(compile (concat "xcodebuild -xcconfig \"" xcodeproj "\" -configuration Debug")))))
