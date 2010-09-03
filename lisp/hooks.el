@@ -12,11 +12,6 @@
   (setq tab-width 4)
   (setq js2-basic-offset tab-width)
 
-  ; js2-mode's indentation is good but js-mode's is better.
-  (require 'js "javascript.el")
-  (setq js-indent-level tab-width)
-  (setq indent-line-function 'js-indent-line)
-
   (inf-js-keys))
 
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
