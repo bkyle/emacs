@@ -470,4 +470,4 @@ nil is returned."
 	 (directory (or (file-name-directory filename) ""))
 	 (xcodeproj (search-up-directory-tree-for-file "*.xcodeproj" directory)))
     (if xcodeproj
-		(compile (concat "xcodebuild -xcconfig \"" xcodeproj "\" -configuration Debug")))))
+	(compile (concat "xcodebuild -xcconfig \"" xcodeproj "\" -configuration Debug")))))
