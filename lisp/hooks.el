@@ -1,4 +1,3 @@
-
 ;; Set these here even though they don't belong.  For some reason they can't be set
 ;; from within my-js2-mode-hook.  I assume it has something to do with these variables
 ;; not being buffer-local.
