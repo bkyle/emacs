@@ -30,6 +30,10 @@
 	  (customize-set-variable 'ispell-program-name '"aspell")
 	  (setq find-program "c:\\cygwin\\bin\\find")))
 
+(if (eq system-type 'darwin)
+	(progn
+	  (customize-set-variable 'ispell-program-name '"/opt/local/bin/ispell")))
+
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
