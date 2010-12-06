@@ -1,49 +1,3 @@
-
-;;
-;; Tags
-;;
-
-;; Stack to contain the tags.
-(defvar tag-stack '())
-
-;; Pushes a tag onto the stack and writes it into the buffer at the point.
-(defun push-tag (tag)
-  (interactive "sTag:")
-  (if (and (stringp tag) (> (length tag) 0))
-      (progn
-        (setq tag-stack (cons tag tag-stack))
-        (insert "<"  tag ">"))))
-
-;; Removes the top tag from the stack and writes the closing tag to the buffer at the point.
-(defun pop-tag ()
-  (interactive)
-  (let ((tag (car tag-stack)))
-    (if (and (stringp tag) (> (length tag) 0))
-        (insert "</" tag ">")))
-  (setq tag-stack (cdr tag-stack)))
-
-;; Wraps the region in the specified tag.
-(defun wrap-region (tag point mark)
-  (interactive "sTag:\nr")
-  (save-excursion
-    (goto-char point)
-    (push-tag tag)
-    (goto-char (+ mark (length (concat"</" tag ">")) -1))
-    (pop-tag)))
-
-;; Wraps the current line in the specified tag.
-(defun wrap-line (tag)
-  (interactive "sTag:")
-  (save-excursion
-    (beginning-of-line)
-    (push-tag tag)
-    (end-of-line)
-    (pop-tag)))
-
-;;
-;; Utils
-;;
-
 ;; Returns the size of the buffer.
 (defun size-of-buffer ()
   "Prints the size of the buffer in bytes, kb and mb to the message area."
@@ -423,6 +377,7 @@ temporary buffer.  This code only works with single-byte characters."
   (save-excursion
 	(goto-char mark)
 	(beginning-of-line)
+	(forward-to-indentation)
 	(if (looking-at comment-start)
 		(uncomment-region mark point)
 	  (comment-region mark point))))
@@ -471,3 +426,20 @@ nil is returned."
 	 (xcodeproj (search-up-directory-tree-for-file "*.xcodeproj" directory)))
     (if xcodeproj
 	(compile (concat "xcodebuild -xcconfig \"" xcodeproj "\" -configuration Debug")))))
+
+
+(defun tidy-region (mark point)
+  (interactive "r")
+  (let ((arguments "-indent "))
+
+	(if (or (eql major-mode 'xml-mode)
+			 (eql major-mode 'nxml-mode))
+		(setq arguments (concat arguments "-xml ")))
+
+	(setq arguments (read-from-minibuffer "Run tidy (with args): " arguments))
+
+	(shell-command-on-region mark point (concat "tidy -q " arguments) nil t)))
+
+(defun tidy-buffer ()
+  (interactive)
+  (tidy-region (point-min) (point-max)))

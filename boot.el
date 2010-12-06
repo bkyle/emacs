@@ -6,7 +6,6 @@
   (add-path "lisp")
   (add-path "site-lisp")
   (add-path "site-lisp/org-7.01h/lisp")
-  (add-path "site-lisp/slime")
   (add-path "site-lisp/scala")
   (add-path "site-lisp/color-theme-6.6.0"))
 
@@ -15,4 +14,3 @@
 (load-library "config")
 (load-library "modes")
 (load-library "hooks")
-(load-library "slime-config")
