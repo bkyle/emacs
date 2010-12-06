@@ -430,7 +430,7 @@ nil is returned."
 
 (defun tidy-region (mark point)
   (interactive "r")
-  (let ((arguments "-indent "))
+  (let ((arguments "-indent --indent-attributes yes --wrap -1 "))
 
 	(if (or (eql major-mode 'xml-mode)
 			 (eql major-mode 'nxml-mode))
