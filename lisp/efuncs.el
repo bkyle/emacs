@@ -377,6 +377,7 @@ temporary buffer.  This code only works with single-byte characters."
   (save-excursion
 	(goto-char mark)
 	(beginning-of-line)
+	(forward-to-indentation)
 	(if (looking-at comment-start)
 		(uncomment-region mark point)
 	  (comment-region mark point))))
@@ -425,3 +426,20 @@ nil is returned."
 	 (xcodeproj (search-up-directory-tree-for-file "*.xcodeproj" directory)))
     (if xcodeproj
 	(compile (concat "xcodebuild -xcconfig \"" xcodeproj "\" -configuration Debug")))))
+
+
+(defun tidy-region (mark point)
+  (interactive "r")
+  (let ((arguments "-indent "))
+
+	(if (or (eql major-mode 'xml-mode)
+			 (eql major-mode 'nxml-mode))
+		(setq arguments (concat arguments "-xml ")))
+
+	(setq arguments (read-from-minibuffer "Run tidy (with args): " arguments))
+
+	(shell-command-on-region mark point (concat "tidy -q " arguments) nil t)))
+
+(defun tidy-buffer ()
+  (interactive)
+  (tidy-region (point-min) (point-max)))
