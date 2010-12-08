@@ -14,6 +14,9 @@
 (setq compilation-scroll-output t)
 (setq split-width-threshold nil)
 
+(require 'undo-tree)
+(global-undo-tree-mode)
+
 (require 'uniquify)
 (customize-set-variable 'uniquify-buffer-name-style 'forward)
 
