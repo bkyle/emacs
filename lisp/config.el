@@ -40,6 +40,7 @@
 
 (if (eq system-type 'darwin)
 	(progn
+	  (setenv "PATH" (concat "~/bin:/opt/local/bin:" (getenv "PATH")))
 	  (customize-set-variable 'ispell-program-name '"/opt/local/bin/ispell")))
 
 (put 'narrow-to-region 'disabled nil)
