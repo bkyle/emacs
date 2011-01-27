@@ -9,6 +9,7 @@
 (autoload 'run-clojure "clojure-mode" nil t)
 (autoload 'scala-mode "scala-mode" nil t)
 (autoload 'erlang-mode "erlang" nil t)
+(autoload 'php-mode "php-mode" nil t)
 
 (autoload 'maven-mode "maven-mode" nil t)
 (autoload 'find-pom-file "maven-mode" nil t)
